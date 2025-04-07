@@ -1,3 +1,4 @@
+# Original gitignore
 *~
 */.libs/
 *.lo
@@ -15,8 +16,9 @@ archive
 autom4te.cache
 compile
 config.guess
-config.h
-config.h.in
+# Removed because I want to remove the dependency on autoconf
+#config.h
+#config.h.in
 config.log
 config.status
 config.sub
@@ -27,3 +29,10 @@ libtool
 ltmain.sh
 missing
 stamp-h1
+
+# Zig gitignore
+.zig-cache/
+zig-out/
+.idea/
+Zig.iml
+demo/
