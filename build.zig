@@ -86,10 +86,12 @@ pub fn build(b: *std.Build) void {
     );
     lib_mod.addConfigHeader(config_header);
 
+    const is_x86_linux = target.result.cpu.arch.isX86() and target.result.os.tag == .linux;
     const lib = b.addLibrary(.{
         .linkage = .static,
         .name = "editline",
         .root_module = lib_mod,
+        .use_llvm = !is_x86_linux,
     });
 
     lib.step.dependOn(&config_header.step);
