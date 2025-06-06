@@ -11,22 +11,21 @@ pub fn build(b: *std.Build) void {
         .link_libc = true,
         .sanitize_c = false,
     });
+
+    const editline_dep = b.dependency("editline-upstream", .{});
     lib_mod.addCSourceFiles(
         .{
+            .root = editline_dep.path("src"),
             .files = &.{
-                "src/editline.c",
-                "src/complete.c",
-                "src/sysunix.c",
+                "editline.c",
+                "complete.c",
+                "sysunix.c",
             },
         },
     );
 
     const config_header = b.addConfigHeader(
-        .{
-            .style = .{
-                .autoconf_undef = b.path("config.h.in"),
-            },
-        },
+        .{},
         .{
             .CLOSEDIR_VOID = null,
             .CONFIG_ANSI_ARROWS = 1,

@@ -1,5 +1,0 @@
-usr/include/*.h
-usr/lib/*/libeditline*.*a
-usr/lib/*/libeditline.so
-usr/lib/*/pkgconfig/*
-usr/share/man/man3/*
