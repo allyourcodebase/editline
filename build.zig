@@ -1,18 +1,13 @@
 const std = @import("std");
 
-pub fn build(b: *std.Build) void {
+pub fn build(b: *std.Build) !void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const editline_dep = b.dependency("editline-upstream", .{});
-
-    // TODO this command is always run, reguardless if the library is cached or not
-    // How can I keep the "config.h", etc cached..?
-    const command = b.fmt(
-        "cd {s} && ./autogen.sh && ./configure",
-        .{editline_dep.path("").getPath3(b, null).toString(b.allocator) catch @panic("OOM")},
-    );
-    const configure_step = b.addSystemCommand(&.{ "sh", "-c", command });
+    const editline_dep = b.dependency("editline-upstream", .{
+        .target = target,
+        .optimize = optimize,
+    });
 
     const lib_mod = b.createModule(.{
         .root_source_file = null,
@@ -35,6 +30,19 @@ pub fn build(b: *std.Build) void {
         .use_llvm = !is_x86_linux,
     });
 
-    lib.step.dependOn(&configure_step.step);
+    const editline_dep_path_3 = editline_dep.path("").getPath3(b, null);
+
+    editline_dep_path_3.access("config.h", std.fs.File.OpenFlags{}) catch |e| switch (e) {
+        error.FileNotFound => {
+            const command = b.fmt(
+                "cd {s} && ./autogen.sh && ./configure",
+                .{editline_dep_path_3.toString(b.allocator) catch @panic("OOM")},
+            );
+            const configure_step = b.addSystemCommand(&.{ "sh", "-c", command });
+            lib.step.dependOn(&configure_step.step);
+        },
+        else => return e,
+    };
+
     b.installArtifact(lib);
 }
