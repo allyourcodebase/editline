@@ -1,38 +1,6 @@
-# Original gitignore
-*~
-*/.libs/
-*.lo
-*.o
-*.pc
-.deps
-.testit_history
-GPATH
-GRTAGS
-GTAGS
-Makefile
-Makefile.in
-aclocal.m4
-archive
-autom4te.cache
-compile
-config.guess
-# Removed because I want to remove the dependency on autoconf
-#config.h
-#config.h.in
-config.log
-config.status
-config.sub
-configure
-depcomp
-install-sh
-libtool
-ltmain.sh
-missing
-stamp-h1
-
-# Zig gitignore
 .zig-cache/
 zig-out/
 .idea/
 Zig.iml
 demo/
+
