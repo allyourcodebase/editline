@@ -4,7 +4,7 @@
     .fingerprint = 0x51296a378b079a49,
     .minimum_zig_version = "0.14.0",
     .dependencies = .{
-        .@"editline-upstream" = .{
+        .editline_upstream = .{
             .url = "https://github.com/troglobit/editline/archive/refs/tags/1.17.1.tar.gz",
             .hash = "N-V-__8AAKBKAgDQFfxHcwdb5lrP7Td5P7ezhKuxOKFMhS10",
         },

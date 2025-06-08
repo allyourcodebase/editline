@@ -4,7 +4,7 @@ pub fn build(b: *std.Build) !void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const editline_dep = b.dependency("editline-upstream", .{
+    const editline_dep = b.dependency("editline_upstream", .{
         .target = target,
         .optimize = optimize,
     });
@@ -30,8 +30,11 @@ pub fn build(b: *std.Build) !void {
         .use_llvm = !is_x86_linux,
     });
 
+    _ = b.findProgram(&.{"autoreconf"}, &.{}) catch |e| {
+        std.debug.print("Cannot build editline because system is missing autoreconf\n", .{});
+        return e;
+    };
     const editline_dep_path_3 = editline_dep.path("").getPath3(b, null);
-
     editline_dep_path_3.access("config.h", std.fs.File.OpenFlags{}) catch |e| switch (e) {
         error.FileNotFound => {
             const command = b.fmt(
