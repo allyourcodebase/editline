@@ -1,6 +1,6 @@
 .{
     .name = .editline,
-    .version = "0.0.0",
+    .version = "1.17.1",
     .fingerprint = 0x51296a378b079a49,
     .minimum_zig_version = "0.14.0",
     .dependencies = .{
