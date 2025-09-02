@@ -14,7 +14,7 @@ pub fn build(b: *std.Build) !void {
         .target = target,
         .optimize = optimize,
         .link_libc = true,
-        .sanitize_c = false,
+        .sanitize_c = .off,
     });
     lib_mod.addCSourceFiles(.{
         .root = editline_dep.path("src"),

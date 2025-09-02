@@ -2,7 +2,7 @@
     .name = .editline,
     .version = "1.17.1",
     .fingerprint = 0x51296a378b079a49,
-    .minimum_zig_version = "0.14.0",
+    .minimum_zig_version = "0.15.1",
     .dependencies = .{
         .editline_upstream = .{
             .url = "https://github.com/troglobit/editline/archive/refs/tags/1.17.1.tar.gz",
